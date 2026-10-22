@@ -1,1 +1,96 @@
-<p>adm-cadastro-profissional works!</p>
+<div class="pagina">
+  <header class="topo">
+    <button class="voltar" type="button">←</button>
+    <div>
+      <h1>Cadastrar Novo Profissional</h1>
+      <p>Visualize e gerencie todos os profissionais cadastrados</p>
+    </div>
+  </header>
+
+  <form [formGroup]="form" (ngSubmit)="cadastrar()" class="card">
+    <div class="colunas">
+
+      <!-- COLUNA ESQUERDA -->
+      <section class="coluna">
+        <h2>Dados Pessoais</h2>
+        <input type="text" placeholder="Nome completo" formControlName="nome" />
+        <input type="date" formControlName="dataNascimento" />
+        <input type="email" placeholder="E-mail" formControlName="email" />
+        <input type="text" placeholder="CPF" formControlName="cpf" />
+        <input type="tel" placeholder="Telefone" formControlName="telefone" />
+
+        <h2>Dados Profissionais</h2>
+        <select formControlName="categoria">
+          <option value="" disabled>Categoria Profissional</option>
+          @for (c of categorias; track c) {
+            <option [value]="c">{{ c }}</option>
+          }
+        </select>
+        <input type="text" placeholder="Número de registro" formControlName="numeroRegistro" />
+        <input type="text" placeholder="Ano de conclusão" formControlName="anoConclusao" />
+      </section>
+
+      <!-- COLUNA DIREITA -->
+      <section class="coluna">
+        <h2>Disponibilidade</h2>
+        <div class="box">
+          <p class="label">Dia da semana disponíveis</p>
+          <div class="dias" formGroupName="dias">
+            @for (d of diasSemana; track d.key) {
+              <label class="dia">
+                <input type="checkbox" [formControlName]="d.key" /> {{ d.label }}
+              </label>
+            }
+          </div>
+
+          <p class="label">Horário de atendimento</p>
+          <div class="linha">
+            <span>Das</span>
+            <input type="time" formControlName="horaInicio" class="hora" />
+            <span>Até</span>
+            <input type="time" formControlName="horaFim" class="hora" />
+            <button type="button" class="btn-mini" (click)="adicionarHorario()">+</button>
+          </div>
+
+          <div formArrayName="horarios">
+            @for (h of horarios.controls; track $index) {
+              <div class="horario">
+                <span>{{ h.value }}</span>
+                <button type="button" class="btn-icone" (click)="removerHorario($index)">🗑</button>
+              </div>
+            }
+          </div>
+
+          <div class="linha">
+            <label><input type="checkbox" formControlName="atendeOnline" /> Atende Online</label>
+            <label><input type="checkbox" formControlName="atendePresencial" /> Atende Presencial</label>
+          </div>
+        </div>
+
+        <p class="label">Status do profissional</p>
+        <div class="status">
+          <label><input type="radio" value="ativo" formControlName="status" /> Ativo</label>
+          <label><input type="radio" value="inativo" formControlName="status" /> Inativo</label>
+        </div>
+
+        <h2>Dados de Acesso</h2>
+        <div class="box">
+          <input type="email" placeholder="E-mail de acesso" formControlName="emailAcesso" />
+          <div class="linha">
+            <input type="text" placeholder="Senha Temporária" formControlName="senhaTemporaria" />
+            <button type="button" class="btn-escuro" (click)="gerarSenha()">⟳ Gerar senha</button>
+          </div>
+          <label>
+            <input type="checkbox" formControlName="enviarBoasVindas" />
+            Enviar e-mail de boas vindas com as instruções de acesso
+          </label>
+        </div>
+      </section>
+    </div>
+
+    <footer class="acoes">
+      <button type="button" class="btn-claro" (click)="cancelar()">Cancelar</button>
+      <button type="submit" class="btn-escuro">Cadastrar</button>
+    </footer>
+  </form>
+</div> 
