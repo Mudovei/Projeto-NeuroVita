@@ -1,0 +1,92 @@
+<div class="layout">
+  <!-- MENU LATERAL -->
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-img">🧠</div>
+      <strong>NeuroVita</strong>
+    </div>
+
+    <nav class="menu">
+      @for (item of menu; track item.nome) {
+        <a class="menu-item" [class.ativo]="item.ativo">
+          <span>{{ item.icone }}</span> {{ item.nome }}
+        </a>
+      }
+    </nav>
+
+    <div class="rodape-menu">
+      <a class="menu-item">⚙️ Configurações</a>
+      <a class="menu-item">❓ Ajuda</a>
+    </div>
+  </aside>
+
+  <!-- CONTEÚDO -->
+  <main class="conteudo">
+    <header class="cabecalho">
+      <div>
+        <h1>Pacientes</h1>
+        <p>Visualize e gerencie todos os pacientes cadastrados</p>
+      </div>
+      <input type="search" class="busca" placeholder="Buscar pacientes..."
+             [(ngModel)]="busca" />
+    </header>
+
+    <!-- CARDS DE RESUMO -->
+    <section class="cards">
+      <div class="card">
+        <div class="icone">👥</div>
+        <div>
+          <strong>{{ totalCadastrados }}</strong>
+          <span>Pacientes<br />Cadastrados</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="icone">✔️</div>
+        <div>
+          <strong>{{ totalEmTratamento }}</strong>
+          <span>Pacientes<br />em tratamento</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="icone">📋</div>
+        <div>
+          <strong>{{ totalAvaliacoes }}</strong>
+          <span>Avaliações<br />realizadas</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- TABELA -->
+    <section class="tabela">
+      <div class="linha cab">
+        <span>Paciente</span>
+        <span>Data de nascimento</span>
+        <span>Telefone</span>
+        <span>Profissional responsável</span>
+        <span>Status</span>
+      </div>
+
+      @for (p of pacientesFiltrados; track $index) {
+        <div class="linha">
+          <div class="paciente">
+            <div class="avatar"></div>
+            <div>
+              <strong>{{ p.nome }}</strong>
+              <small>ID: {{ p.id }} - {{ p.idade }} anos</small>
+            </div>
+          </div>
+          <span>📅 {{ p.nascimento }}</span>
+          <span>{{ p.telefone }}</span>
+          <span>{{ p.profissional }}</span>
+          <span>
+            <em class="status" [class.ativo]="p.ativo" [class.inativo]="!p.ativo">
+              ● {{ p.ativo ? 'Ativo' : 'Inativo' }}
+            </em>
+          </span>
+        </div>
+      } @empty {
+        <p class="vazio">Nenhum paciente encontrado.</p>
+      }
+    </section>
+  </main>
+</div>

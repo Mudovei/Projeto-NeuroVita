@@ -1,0 +1,19 @@
+<aside class="sidebar">
+  <div class="logo">
+    <div class="logo-img">🧠</div>
+    <strong>NeuroVita</strong>
+  </div>
+
+  <nav class="menu">
+    @for (item of menu; track item.nome) {
+      <a class="menu-item" [class.ativo]="item.nome === ativo">
+        <span>{{ item.icone }}</span> {{ item.nome }}
+      </a>
+    }
+  </nav>
+
+  <div class="rodape-menu">
+    <a class="menu-item">⚙️ Configurações</a>
+    <a class="menu-item">❓ Ajuda</a>
+  </div>
+</aside>

@@ -1,0 +1,76 @@
+<div class="layout">
+  <app-sidebar ativo="Profissionais" />
+
+  <main class="conteudo">
+    <header class="cabecalho">
+      <div>
+        <h1>Profissional</h1>
+        <p>Visualize e gerencie todos os profissionais cadastrados</p>
+      </div>
+
+      <div class="acoes-topo">
+        <input type="search" class="busca" placeholder="Buscar profissionais..."
+               [(ngModel)]="busca" />
+        <button type="button" class="btn-escuro" (click)="novoProfissional()">
+          ➕ Novo Profissional
+        </button>
+      </div>
+    </header>
+
+    <!-- CARDS -->
+    <section class="cards">
+      <div class="card">
+        <div class="icone">👥</div>
+        <div>
+          <strong>{{ totalPsicologos }}</strong>
+          <span>Psicólogos<br />cadastrados</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="icone">👥</div>
+        <div>
+          <strong>{{ totalPsiquiatras }}</strong>
+          <span>Psiquiatra<br />cadastrados</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- TABELA -->
+    <section class="tabela">
+      <div class="linha cab">
+        <span>Profissional</span>
+        <span>Data de nascimento</span>
+        <span>Telefone</span>
+        <span>Registro</span>
+        <span>Status</span>
+        <span>Ações</span>
+      </div>
+
+      @for (p of profissionaisFiltrados; track $index) {
+        <div class="linha">
+          <div class="profissional">
+            <div class="avatar"></div>
+            <div>
+              <strong>{{ p.nome }}</strong>
+              <small>ID: {{ p.id }} - {{ p.idade }} anos</small>
+            </div>
+          </div>
+          <span>📅 {{ p.nascimento }}</span>
+          <span>{{ p.telefone }}</span>
+          <span class="registro">{{ p.registro }}</span>
+          <span>
+            <em class="status" [class.ativo]="p.ativo" [class.inativo]="!p.ativo">
+              ● {{ p.ativo ? 'Ativo' : 'Inativo' }}
+            </em>
+          </span>
+          <span class="acoes">
+            <button type="button" class="btn-icone editar" (click)="editar(p)" aria-label="Editar">✏️</button>
+            <button type="button" class="btn-icone excluir" (click)="excluir(p)" aria-label="Excluir">🗑️</button>
+          </span>
+        </div>
+      } @empty {
+        <p class="vazio">Nenhum profissional encontrado.</p>
+      }
+    </section>
+  </main>
+</div>

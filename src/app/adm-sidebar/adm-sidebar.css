@@ -1,0 +1,26 @@
+.sidebar {
+  background: #0b1526;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 14px;
+  height: 100%;
+  box-sizing: border-box;
+}
+.logo { text-align: center; margin-bottom: 28px; }
+.logo-img { font-size: 44px; }
+
+.menu { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.menu-item {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}
+.menu-item:hover { background: rgba(255, 255, 255, 0.08); }
+.menu-item.ativo { background: #fff; color: #0b1526; }
+.rodape-menu { display: flex; flex-direction: column; gap: 4px; }
